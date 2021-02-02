@@ -2,15 +2,32 @@
 .myh1 {
     font-family: Georgia, serif;
     font-weight: bolder;
+    margin-left: 20px;
+
 }
 
 .searchSection, .display {
     background-color: rgb(95, 99, 100);
+    margin-top: auto;
 }
-
+.card {
+    margin-left: 7%;
+    margin-right: 70%;
+    background-color: aqua;
+}
+.forecastCard {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 50%;
+    height: 200px;
+    width: 200px;
+    background-color: aqua;
+    font-size: larger;
+}
 .myBtn {
     background-color: rgb(34, 48, 61);
     color: rgb(187, 125, 125);
+    margin-top: 15px;
 }
 
 .myBtn:hover {
