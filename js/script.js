@@ -10,12 +10,12 @@ $(document).ready(function () {
       var icon = $("<img>").addClass("theIcon");
       $("#cityCurrent").append(icon);
 
-      var uvIndex = $("<p>").addClass("uV");
-      var uvIndicator = $("<span>").addClass("uvIndicator");
+      var uiIndex = $("<p>").addClass("uI");
+      var uiIndicator = $("<span>").addClass("uiIndicator");
       $("#cityCurrent").append(uvIndex);
       $("#cityCurrent").append(uvIndicator);
 
-      var forecastHeading = $("<p>").addClass("h3 myH1 text-center mt-2 forecastHeading");
+      var forecastHeading = $("<p>").addClass("h3 myH1 text-center mt-4 forecastHeading");
       $("#Heading").append(forecastHeading);
 
       //onclick methof for search btn
@@ -47,11 +47,9 @@ $(document).ready(function () {
                         title.append(img)
                         card.append(title, temperature, humidity, windSpeed);
                         $("#cityCurrent").append(card);
-
                         //call function for 5 day
                         getFiveDay(cityName);
-                        //call function for UV
-
+                        //call function for UI
                   }
             })
 
@@ -74,8 +72,8 @@ $(document).ready(function () {
                                     var day = $("<h4>").text(new Date(data.list[i].dt_txt).toLocaleDateString())
                                     var maxT = $("<p>").text("Temperature: " + data.list[i].main.temp_max + "F");
                                     var humid = $("<p>").text("Humidity: " + data.list[i].main.humidity + "%")
-           
-                                  
+
+
                                     card.append(day, maxT, humid);
                                     colDiv.append(card);
                                     $(".forecast").append(colDiv);
