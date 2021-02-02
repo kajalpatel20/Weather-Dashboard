@@ -1,0 +1,34 @@
+
+.myh1 {
+    font-family: Georgia, serif;
+    font-weight: bolder;
+}
+
+.searchSection, .display {
+    background-color: rgb(95, 99, 100);
+}
+
+.myBtn {
+    background-color: rgb(34, 48, 61);
+    color: rgb(187, 125, 125);
+}
+
+.myBtn:hover {
+    background-color: rgb(163, 215, 231);
+    color: black;
+}
+
+.lowUv {
+    background-color: rgb(230, 176, 227);
+    padding: 5px;
+}
+
+.moderateUv {
+    background-color: rgb(33, 233, 190);
+    padding: 5px;
+}
+
+.highUv {
+    background-color: rgb(197, 81, 13);
+    padding: 5px;
+}
