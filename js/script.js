@@ -65,7 +65,7 @@ $(document).ready(function () {
                               type: "GET",
                               dataType: "json",
                               success: function (data) {
-                                    return response.json()
+                                    //return response.json()
                                     var uvI = data.value;
                                     $(".uvIndex").text("UV Index: " + data.current.uvI);
                                     //0-2 low, 3-7 moderate to high, 8+ very high to extreme
