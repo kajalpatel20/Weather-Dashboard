@@ -33,7 +33,7 @@ $(document).ready(function () {
             //make ajax call
             $.ajax({
                   type: "GET",
-                  url: "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=imperial",
+                  url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=imperial",
                   dataType: "json",
                   success: function (data) {
                         //console.log("successful call", data)
@@ -43,8 +43,8 @@ $(document).ready(function () {
                         var humidity = $("<p>").addClass("theHumidity").text("Humidity: " + data.main.humidity + "%");
                         var windSpeed = $("<p>").addClass("theWindSpeed").text("Wind Speed " + data.wind.speed + " MPH");
                         var title = $("<h2>").addClass("currentTitle").text(data.name);
-                        // console.log("http://openweathermap.org/img/w/" + data.weather[0].icon )
-                        var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
+                         console.log("https://openweathermap.org/img/w/" + data.weather[0].icon )
+                        var img = $("<img>").attr("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
 
                         //append to card, append card to html 
                         title.append(img)
@@ -89,7 +89,7 @@ $(document).ready(function () {
       function getFiveDay(city) {
             $.ajax({
                   type: "GET",
-                  url: "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial",
+                  url: "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial",
                   dataType: "json",
                   success: function (data) {
 
