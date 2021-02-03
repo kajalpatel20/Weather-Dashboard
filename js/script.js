@@ -10,13 +10,16 @@ $(document).ready(function () {
       var icon = $("<img>").addClass("theIcon");
       $("#cityCurrent").append(icon);
 
-      var uiIndex = $("<p>").addClass("uI");
-      var uiIndicator = $("<span>").addClass("uiIndicator");
-      $("#cityCurrent").append(uvIndex);
-      $("#cityCurrent").append(uvIndicator);
-
-      var forecastHeading = $("<p>").addClass("h3 myH1 text-center mt-4 forecastHeading");
+      var forecastHeading = $("<p>").addClass("h3 myh1 text-center mt-4 forecastHeading");
       $("#Heading").append(forecastHeading);
+
+
+      var uviIndex = $("<p>").addClass("uvI");
+      var uviIndicator = $("<span>").addClass("uviIndicator");
+
+      $("#cityCurrent").append(uviIndex);
+      $("#cityCurrent").append(uviIndicator);
+
 
       //onclick methof for search btn
       $("#searchButton").on("click", function () {
@@ -33,10 +36,10 @@ $(document).ready(function () {
                   url: "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=imperial",
                   dataType: "json",
                   success: function (data) {
-                        console.log("successful call", data)
+                        //console.log("successful call", data)
                         //render data to html
                         var card = $("<div>").addClass("card");
-                        var temperature = $("<p>").addClass("theTemperature").text("Temperature: " + data.main.temp + " F")
+                        var temperature = $("<p>").addClass("theTemperature").text("Temperature: " + data.main.temp + " F");
                         var humidity = $("<p>").addClass("theHumidity").text("Humidity: " + data.main.humidity + "%");
                         var windSpeed = $("<p>").addClass("theWindSpeed").text("Wind Speed " + data.wind.speed + " MPH");
                         var title = $("<h2>").addClass("currentTitle").text(data.name);
@@ -47,12 +50,40 @@ $(document).ready(function () {
                         title.append(img)
                         card.append(title, temperature, humidity, windSpeed);
                         $("#cityCurrent").append(card);
+
                         //call function for 5 day
                         getFiveDay(cityName);
-                        //call function for UI
-                  }
-            })
 
+                        //call function for UvIndex
+
+                        var lat = data.coord.lat
+                        var lon = data.coord.lon
+
+                        var queryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=imperial"
+                        $.ajax({
+                              url: queryURL,
+                              type: "GET",
+                              dataType: "json",
+                              success: function (data) {
+                                    return response.json()
+                                    var uvI = data.value;
+                                    $(".uvIndex").text("UV Index: " + data.current.uvI);
+                                    //0-2 low, 3-7 moderate to high, 8+ very high to extreme
+                                    if (data.current.uvI <= 2) {
+                                          $(".uviIndicator").addClass("low")
+                                          $(".uviIndicator").text("Low risk")
+                                    } else if (data.current.uvI > 2 == data.current.uvI < 8) {
+                                          $("uviIndicator").addClass("moderate")
+                                          $("uviIndicator").text("Moderate risk")
+                                    } else {
+                                          $("uviIndicator").addClass("High")
+                                          $("uviIndicator").text("High risk")
+                                    }
+                              }
+
+                        });
+                  }
+            });
       }
 
       function getFiveDay(city) {
@@ -73,21 +104,14 @@ $(document).ready(function () {
                                     var maxT = $("<p>").text("Temperature: " + data.list[i].main.temp_max + "F");
                                     var humid = $("<p>").text("Humidity: " + data.list[i].main.humidity + "%")
 
-
                                     card.append(day, maxT, humid);
                                     colDiv.append(card);
                                     $(".forecast").append(colDiv);
                               }
-
                         }
                   }
-            })
+            });
       }
 
-
-
-
-
-
-})
+});
 

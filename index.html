@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Weather Dashboard</title>
+  <title>Weather-Dashboard</title>
 
   <!--link to reset css-->
   <link rel="stylesheet" href="./css/reset.css">
@@ -36,18 +36,21 @@
           <input class="form-control" type="search" id="cityNameInput" placeholder="City Name" aria-label="Search"style="background-color: #c2d4e2;">
           <button class="btn myBtn btn-dark" id="searchButton" type="submit">Search</button>
         </section>
-        <section class="mb-2 mt-2">
-          <section class="list-group savedList">
+        <section class="mb-4 mt-4">
+          
+          <section class="list-group savedList"></section>
 
           </section>
         </section>
       </section>
 <div class="container-fluid">
       <div class="display col-12 solid-border-dark border-dark mt-4 mb-4 displaySection">
-        <h1 class="myh1 text-center mt-4 mb-4">Weather</h1>
+        <h1 class="myh1 text-center mt-5 mb-5">Weather</h1>
         <section id="cityCurrent"></section>
         <div class="row forecast"></div>
-
+        <div class="card">
+          <h3>UV Index: <span id="uvI"></span></h3>
+        </div>
         <section>
           <section id="Heading"></section>
           <search class="Forecast row row-cols-1 row-cols-md-4 justify-content-center"></search>
