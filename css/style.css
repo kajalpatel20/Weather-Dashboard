@@ -6,7 +6,7 @@
     margin-left: 20px;
 
 }
-.myh1 {
+.myh2 {
     font-weight: bolder;
     font-size: 50px;
 }
@@ -36,15 +36,15 @@
 }
 .low {
     background-color: rgb(202, 230, 176);
-    padding: 5px;
+    padding: 10px;
 }
 
 .moderate {
     background-color: rgb(245, 212, 26);
-    padding: 5px;
+    padding: 10px;
 }
 
 .high {
     background-color: rgb(197, 81, 13);
-    padding: 5px;
+    padding: 10px;
 }

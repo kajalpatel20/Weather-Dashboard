@@ -58,21 +58,19 @@ $(document).ready(function () {
 
                         var lat = data.coord.lat
                         var lon = data.coord.lon
-
-                        var queryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=imperial"
+            
+                        var queryURL = "https://api.openweathermap.org/data/2.5/uvi?"+ lat + lon + "&appid=" + apiKey + "&units=imperial"
                         $.ajax({
                               url: queryURL,
                               type: "GET",
                               dataType: "json",
                               success: function (data) {
-                                    //return response.json()
-                                    var uvI = data.value;
-                                    $(".uvIndex").text("UV Index: " + data.current.uvI);
-                                    //0-2 low, 3-7 moderate to high, 8+ very high to extreme
-                                    if (data.current.uvI <= 2) {
+                                    $(".uvIndex").text("UV Index: " + data.main.uvI);
+                                    //0-2 low, 3-7 moderate to warning, 8+ very high to extreme
+                                    if (data.main.uvI <= 2) {
                                           $(".uviIndicator").addClass("low")
                                           $(".uviIndicator").text("Low risk")
-                                    } else if (data.current.uvI > 2 == data.current.uvI < 8) {
+                                    } else if (data.main.uvI > 2 == data.main.uvI < 8) {
                                           $("uviIndicator").addClass("moderate")
                                           $("uviIndicator").text("Moderate risk")
                                     } else {
@@ -80,7 +78,6 @@ $(document).ready(function () {
                                           $("uviIndicator").text("High risk")
                                     }
                               }
-
                         });
                   }
             });
@@ -103,7 +100,6 @@ $(document).ready(function () {
                                     var day = $("<h4>").text(new Date(data.list[i].dt_txt).toLocaleDateString())
                                     var maxT = $("<p>").text("Temperature: " + data.list[i].main.temp_max + "F");
                                     var humid = $("<p>").text("Humidity: " + data.list[i].main.humidity + "%")
-
                                     card.append(day, maxT, humid);
                                     colDiv.append(card);
                                     $(".forecast").append(colDiv);
@@ -112,6 +108,5 @@ $(document).ready(function () {
                   }
             });
       }
-
-});
-
+});     
+      searchButton.addEventListener('click', getCurrentWeather)
