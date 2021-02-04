@@ -69,7 +69,7 @@ $(document).ready(function () {
                                     //console.log(data)
                                     $(".uvIndex").text("UV Index: " + data.current.uvi);
                                     console.log(data.current.uvi)
-                                    $(".uvi").append(card);
+                                    $(".uvi").append(uviIndex);
                                     //0-2 low, 3-7 moderate to warning, 8+ very high to extreme
                                     if (data.current.uvi <= 2) {
                                           $(".uviIndicator").addClass("low")

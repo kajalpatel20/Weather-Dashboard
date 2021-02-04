@@ -37,6 +37,9 @@ The following image shows the web application's appearance and functionality:
 
 * Repository contains quality readme file with description, screenshot, and link to deployed application.
 
+* Screenshot:
+
+![Weather Dashboard](./Assets/Screen Shot .png)
 
 * The URL of the functional, deployed application.
 
