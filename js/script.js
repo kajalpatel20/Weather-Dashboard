@@ -1,7 +1,10 @@
+      var cityName = []
 $(document).ready(function () {
+       
+      savedSearch()
       var apiKey = "05ec9aa2523ccea7033d8fff74205311";
 
-      var theCity = $("<p>").addClass("theCity myh1");
+      var theCity = $("<p>").addClass("theCity");
       $("#cityCurrent").append(theCity);
 
       var theDate = $("<p>").addClass("theDate")
@@ -10,13 +13,11 @@ $(document).ready(function () {
       var icon = $("<img>").addClass("theIcon");
       $("#cityCurrent").append(icon);
 
-      var forecastHeading = $("<p>").addClass("h3 myh1 text-center mt-4 forecastHeading");
+      var forecastHeading = $("<p>").addClass("h3 text-center mt-4 forecastHeading");
       $("#Heading").append(forecastHeading);
-
 
       var uviIndex = $("<p>").addClass("uvI");
       var uviIndicator = $("<span>").addClass("uviIndicator");
-
       $("#cityCurrent").append(uviIndex);
       $("#cityCurrent").append(uviIndicator);
 
@@ -43,9 +44,9 @@ $(document).ready(function () {
                         var humidity = $("<p>").addClass("theHumidity").text("Humidity: " + data.main.humidity + "%");
                         var windSpeed = $("<p>").addClass("theWindSpeed").text("Wind Speed " + data.wind.speed + " MPH");
                         var title = $("<h2>").addClass("currentTitle").text(data.name);
-                         console.log("https://openweathermap.org/img/w/" + data.weather[0].icon )
-                        var img = $("<img>").attr("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
-
+                        // console.log("https://openweathermap.org/img/w/" + data.weather[0].icon )
+                        var img = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
+                        
                         //append to card, append card to html 
                         title.append(img)
                         card.append(title, temperature, humidity, windSpeed);
@@ -59,18 +60,21 @@ $(document).ready(function () {
                         var lat = data.coord.lat
                         var lon = data.coord.lon
             
-                        var queryURL = "https://api.openweathermap.org/data/2.5/uvi?"+ lat + lon + "&appid=" + apiKey + "&units=imperial"
+                        var queryURL = "https://api.openweathermap.org/data/2.5/onecall?"+ "lat="+lat +"&lon="+ lon + "&units=imperial+&appid=05ec9aa2523ccea7033d8fff74205311"
                         $.ajax({
                               url: queryURL,
                               type: "GET",
                               dataType: "json",
                               success: function (data) {
-                                    $(".uvIndex").text("UV Index: " + data.main.uvI);
+                                    //console.log(data)
+                                    $(".uvIndex").text("UV Index: " + data.current.uvi);
+                                    console.log(data.current.uvi)
+                                    $(".uvi").append(card);
                                     //0-2 low, 3-7 moderate to warning, 8+ very high to extreme
-                                    if (data.main.uvI <= 2) {
+                                    if (data.current.uvi <= 2) {
                                           $(".uviIndicator").addClass("low")
                                           $(".uviIndicator").text("Low risk")
-                                    } else if (data.main.uvI > 2 == data.main.uvI < 8) {
+                                    } else if (data.current.uvi > 2 == data.current.uvi < 8) {
                                           $("uviIndicator").addClass("moderate")
                                           $("uviIndicator").text("Moderate risk")
                                     } else {
@@ -100,6 +104,7 @@ $(document).ready(function () {
                                     var day = $("<h4>").text(new Date(data.list[i].dt_txt).toLocaleDateString())
                                     var maxT = $("<p>").text("Temperature: " + data.list[i].main.temp_max + "F");
                                     var humid = $("<p>").text("Humidity: " + data.list[i].main.humidity + "%")
+                   
                                     card.append(day, maxT, humid);
                                     colDiv.append(card);
                                     $(".forecast").append(colDiv);
@@ -109,4 +114,15 @@ $(document).ready(function () {
             });
       }
 });     
-      searchButton.addEventListener('click', getCurrentWeather)
+      //searchButton.addEventListener('click', cityName)
+      function savedSearch(theCity) {
+            if (theCity !== "") {
+            if (cityName.indexOf(theCity) == -1) {
+              cityName.unshift(theCity);
+              if(cityName.length > 5) {
+                cityName.pop();
+              }
+              localStorage["cityName"] = JSON.stringify(cityName);
+            }
+          }
+          }
