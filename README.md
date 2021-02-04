@@ -40,7 +40,7 @@ The following image shows the web application's appearance and functionality:
 
 * The URL of the functional, deployed application.
 
-kajalpatel20.github.io/weather-dashboard/
+https://kajalpatel20.github.io/Weather-Dashboard/
 
 * The URL of the GitHub repository. 
 
