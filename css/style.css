@@ -1,24 +1,17 @@
 
-.container-fluid {
-    font-family: Georgia, serif;
-    font-weight: bolder;
-    font-size: 15px;
-    margin-left: 20px;
-
-}
 .myh2 {
     font-weight: bolder;
     font-size: 50px;
 }
 
 .searchSection, .display {
-    background-color: rgb(95, 99, 100);
+    background-color: rgb(167, 226, 241);
     
 }
-.card {
-    margin-left: 7.5%;
+.card{
+    margin-left: 10%;
     margin-right: 70%;
-    background-color: aqua;
+    background-color:azure;
 }
 .forecastCard {
     margin-top: 30px;
@@ -26,25 +19,25 @@
     margin-left: 50%;
     height: 200px;
     width: 200px;
-    background-color: aqua;
+    background-color: azure;
     font-size: larger;
 }
 .myBtn {
-    background-color: rgb(34, 48, 61);
-    color: rgb(187, 125, 125);
+    background-color: rgb(168, 98, 165);
+    color: rgb(66, 31, 31);
     margin-top: 15px;
 }
 .low {
-    background-color: rgb(202, 230, 176);
+    background-color: rgb(120, 161, 82);
     padding: 10px;
 }
 
 .moderate {
-    background-color: rgb(245, 212, 26);
+    background-color: rgb(245, 179, 26);
     padding: 10px;
 }
 
 .high {
-    background-color: rgb(197, 81, 13);
+    background-color: rgb(224, 97, 24);
     padding: 10px;
 }
