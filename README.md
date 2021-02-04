@@ -39,7 +39,7 @@ The following image shows the web application's appearance and functionality:
 
 * Screenshot:
 
-![Weather-Dashboard](./Assets/Screen Shot .png)
+![Weather Dashboard](./Assets/Screen Shot .png)
 
 * The URL of the functional, deployed application.
 
