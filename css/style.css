@@ -29,15 +29,15 @@
 }
 .low {
     background-color: rgb(120, 161, 82);
-    padding: 10px;
+    padding: 0px;
 }
 
 .moderate {
     background-color: rgb(245, 179, 26);
-    padding: 10px;
+    padding: 0px;
 }
 
 .high {
     background-color: rgb(224, 97, 24);
-    padding: 10px;
+    padding: 0px;
 }

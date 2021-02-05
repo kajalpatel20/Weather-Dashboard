@@ -1,7 +1,9 @@
-      var cityName = []
+var cityName = []
+
 $(document).ready(function () {
-       
-      savedSearch()
+
+
+      var searchBox = $("<div>").addClass("card text-center mb-4")
       var apiKey = "05ec9aa2523ccea7033d8fff74205311";
 
       var theCity = $("<p>").addClass("theCity");
@@ -45,8 +47,8 @@ $(document).ready(function () {
                         var windSpeed = $("<p>").addClass("theWindSpeed").text("Wind Speed " + data.wind.speed + " MPH");
                         var title = $("<h2>").addClass("currentTitle").text(data.name);
                         // console.log("https://openweathermap.org/img/w/" + data.weather[0].icon )
-                        var img = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
-                        
+                        var img = $("<img>").attr("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
+
                         //append to card, append card to html 
                         title.append(img)
                         card.append(title, temperature, humidity, windSpeed);
@@ -59,28 +61,29 @@ $(document).ready(function () {
 
                         var lat = data.coord.lat
                         var lon = data.coord.lon
-            
-                        var queryURL = "https://api.openweathermap.org/data/2.5/onecall?"+ "lat="+lat +"&lon="+ lon + "&units=imperial+&appid=05ec9aa2523ccea7033d8fff74205311"
+
+                        var queryURL = "https://api.openweathermap.org/data/2.5/onecall?" + "lat=" + lat + "&lon=" + lon + "&units=imperial+&appid=05ec9aa2523ccea7033d8fff74205311"
                         $.ajax({
                               url: queryURL,
                               type: "GET",
                               dataType: "json",
                               success: function (data) {
                                     //console.log(data)
-                                    $(".uvIndex").text("UV Index: " + data.current.uvi);
-                                    console.log(data.current.uvi)
-                                    $(".uvi").append(uviIndex);
+                                    $("#uvi").text("UV Index: " + data.current.uvi);
+                                    //console.log(data.current.uvi)
+
                                     //0-2 low, 3-7 moderate to warning, 8+ very high to extreme
                                     if (data.current.uvi <= 2) {
-                                          $(".uviIndicator").addClass("low")
+                                          $("#uvi").addClass("low")
                                           $(".uviIndicator").text("Low risk")
                                     } else if (data.current.uvi > 2 == data.current.uvi < 8) {
-                                          $("uviIndicator").addClass("moderate")
+                                          $("#uvi").addClass("moderate")
                                           $("uviIndicator").text("Moderate risk")
                                     } else {
-                                          $("uviIndicator").addClass("High")
+                                          $("#uvi").addClass("High")
                                           $("uviIndicator").text("High risk")
                                     }
+                                    $("#uvi").append(uviIndex);
                               }
                         });
                   }
@@ -104,7 +107,7 @@ $(document).ready(function () {
                                     var day = $("<h4>").text(new Date(data.list[i].dt_txt).toLocaleDateString())
                                     var maxT = $("<p>").text("Temperature: " + data.list[i].main.temp_max + "F");
                                     var humid = $("<p>").text("Humidity: " + data.list[i].main.humidity + "%")
-                   
+
                                     card.append(day, maxT, humid);
                                     colDiv.append(card);
                                     $(".forecast").append(colDiv);
@@ -113,16 +116,39 @@ $(document).ready(function () {
                   }
             });
       }
-});     
-      //searchButton.addEventListener('click', cityName)
-      function savedSearch(theCity) {
-            if (theCity !== "") {
+});
+//searchButton.addEventListener('click', cityName)
+
+function savedSearch(theCity) {
+      if (theCity !== "") {
             if (cityName.indexOf(theCity) == -1) {
-              cityName.unshift(theCity);
-              if(cityName.length > 5) {
-                cityName.pop();
-              }
-              localStorage["cityName"] = JSON.stringify(cityName);
+                  cityName.unshift(theCity);
+                  if (cityName.length > 5) {
+                        cityName.pop();
+                  }
+                  localStorage["cityName"] = JSON.stringify(cityName);
             }
-          }
-          }
+      }
+}
+
+if (localStorage["cityName"]) {
+      $("#savedList").empty()
+      cityName = JSON.parse(localStorage.getItem("cityName"))
+
+      for (i = 0; i < cityName.length; i++) {
+            var searchCities = $("<a>").addClass("list-group-item");
+            searchCities.text(cityName[i]);
+
+            searchCities.click(function (event) {
+                  event.preventDefault()
+                  $(".forecast").empty()
+                  $(".uviIndicator").removeClass("low moderate High")
+                  var theCity = event.target.text
+                  getWeather(theCity);
+            })
+            $("#savedList").append(searchCities);
+      }
+
+}
+
+
