@@ -54,29 +54,63 @@ $(document).ready(function () {
                         card.append(title, temperature, humidity, windSpeed);
                         $("#cityCurrent").append(card);
 
-                        //call function for 5 day
-                        getFiveDay(cityName);
-
-                        //call function for UvIndex
-
                         var lat = data.coord.lat
                         var lon = data.coord.lon
+                        console.log('COORD', lat, lon)
+                        //call function for 5 day
+                        getFiveDay(cityName);
+                        getUV(lat, lon)
+                        //call function for UvIndex
 
-                        var queryURL = "https://api.openweathermap.org/data/2.5/onecall?" + "lat=" + lat + "&lon=" + lon + "&units=imperial+&appid=05ec9aa2523ccea7033d8fff74205311"
+                       
+
+                        // var queryURL = "https://api.openweathermap.org/data/2.5/uvi?" + "lat=" + lat + "&lon=" + lon + "&appid=05ec9aa2523ccea7033d8fff74205311"
+                        // console.log("B$ API")
+                        // $.ajax({
+                        //       url: queryURL,
+                        //       type: "GET",
+                        //       dataType: "json",
+                        //       success: function (data) {
+                        //             console.log("UV HERE",  data)
+                        //             $("#uvi").text("UV Index: " + data.current.uvi);
+                        //             //console.log(data.current.uvi)
+
+                        //             //0-2 low, 3-7 moderate to warning, 8+ very high to extreme
+                        //             if (data.current.uvi <= 2) {
+                        //                   $("#uvi").addClass("low")
+                        //                   $(".uviIndicator").text("Low risk")
+                        //             } else if (data.current.uvi > 2 == data.current.uvi < 8) {
+                        //                   $("#uvi").addClass("moderate")
+                        //                   $("uviIndicator").text("Moderate risk")
+                        //             } else {
+                        //                   $("#uvi").addClass("High")
+                        //                   $("uviIndicator").text("High risk")
+                        //             }
+                        //             $("#uvi").append(uviIndex);
+                        //       }
+                        // });
+
+                  }
+            });
+      }
+
+      function getUV(lat, lon){
+            var queryURL = "https://api.openweathermap.org/data/2.5/uvi?appid=05ec9aa2523ccea7033d8fff74205311" + "&lat=" + lat + "&lon=" + lon
+                        console.log("B$ API")
                         $.ajax({
                               url: queryURL,
                               type: "GET",
                               dataType: "json",
                               success: function (data) {
-                                    //console.log(data)
-                                    $("#uvi").text("UV Index: " + data.current.uvi);
+                                    console.log("UV HERE",  data)
+                                    $("#uvi").text(data.value);
                                     //console.log(data.current.uvi)
 
                                     //0-2 low, 3-7 moderate to warning, 8+ very high to extreme
-                                    if (data.current.uvi <= 2) {
+                                    if (data.value <= 2) {
                                           $("#uvi").addClass("low")
                                           $(".uviIndicator").text("Low risk")
-                                    } else if (data.current.uvi > 2 == data.current.uvi < 8) {
+                                    } else if (data.value > 2 == data.value < 8) {
                                           $("#uvi").addClass("moderate")
                                           $("uviIndicator").text("Moderate risk")
                                     } else {
@@ -86,8 +120,6 @@ $(document).ready(function () {
                                     $("#uvi").append(uviIndex);
                               }
                         });
-                  }
-            });
       }
 
       function getFiveDay(city) {
@@ -129,6 +161,7 @@ function savedSearch(theCity) {
                   localStorage["cityName"] = JSON.stringify(cityName);
             }
       }
+//      var citys =  localStorage.getItem("cityName") || []
 }
 
 if (localStorage["cityName"]) {
